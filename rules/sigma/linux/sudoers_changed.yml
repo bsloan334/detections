@@ -1,0 +1,25 @@
+title: Sudoers file changed outside Ansible
+id: 2f4b9d7e-8a63-4c0e-b7d1-5e9a2c3f6b18
+status: experimental
+description: >
+  A change to /etc/sudoers or /etc/sudoers.d made by something other than an Ansible run.
+  Ansible manages every host, so a hand edit is either a mistake or persistence.
+author: home lab
+date: 2026-11-18
+tags:
+  - attack.privilege-escalation
+  - attack.t1548.003
+logsource:
+  product: linux
+  service: auditd
+detection:
+  selection:
+    type: PATH
+    name|startswith:
+      - /etc/sudoers
+  filter_ansible:
+    exe|contains: ansible
+  condition: selection and not filter_ansible
+falsepositives:
+  - Package upgrades that ship a sudoers drop-in
+level: medium

@@ -1,0 +1,25 @@
+title: SSH authentication failures from the Lab VLAN
+id: 6c1f0a52-1d8e-4c51-9a7e-3b1c0a6f9e21
+status: experimental
+description: >
+  Failed SSH logins coming from the isolated Lab VLAN (10.10.50.0/24). Nothing on that VLAN
+  should try to log in to internal hosts, so even a few failures mean a range machine is
+  probing outward.
+author: home lab
+date: 2026-11-18
+tags:
+  - attack.credential-access
+  - attack.t1110.001
+logsource:
+  product: linux
+  service: auth
+detection:
+  selection:
+    - 'Failed password for'
+    - 'Invalid user'
+  lab_vlan:
+    - 'from 10.10.50.'
+  condition: selection and lab_vlan
+falsepositives:
+  - An exercise on the AD range that targets internal hosts on purpose
+level: high

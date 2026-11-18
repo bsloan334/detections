@@ -1,0 +1,2 @@
+Nov 18 20:01:12 docker-01 sshd[2211]: Failed password for root from 10.10.50.14 port 51234 ssh2
+Nov 18 20:01:15 docker-01 sshd[2213]: Invalid user admin from 10.10.50.14 port 51240
